@@ -1,11 +1,29 @@
 public class Employee {
    private int employeeId;
    private String name;
-   private String department;
+
+    public boolean isPunchedOut() {
+        return isPunchedOut;
+    }
+
+    public void setPunchedOut(boolean punchedOut) {
+        isPunchedOut = punchedOut;
+    }
+
+    public boolean isPunchedIn() {
+        return isPunchedIn;
+    }
+
+    public void setPunchedIn(boolean punchedIn) {
+        isPunchedIn = punchedIn;
+    }
+
+    private String department;
     private double payRate;
      private  double hoursWorked;
     private int startTime;
-    private boolean punchedIn = false;
+    private boolean isPunchedIn = false;
+    private boolean  isPunchedOut= true;
 
     public Employee(){
 
@@ -71,9 +89,9 @@ public class Employee {
          return  hoursWorked-40;
     }
     public void punchIn(int time) {
-        if (!punchedIn && time >= 0 && time <= 23) {
+        if (!isPunchedIn && time >= 0 && time <= 23) {
             startTime = time;
-            punchedIn = true;
+            isPunchedIn = true;
             System.out.println(name + " punched in at " + time);
         } else {
             System.out.println("Invalid punch-in");
@@ -81,16 +99,16 @@ public class Employee {
     }
 
     public void punchOut(int time) {
-        if (punchedIn && time > startTime && time <= 23) {
+        if (isPunchedIn && time > startTime && time <= 23) {
             hoursWorked += time - startTime;
-            punchedIn = false;
+            isPunchedIn = false;
             System.out.println("Hours worked: " + hoursWorked);
         } else {
             System.out.println("Invalid punch-out");
         }
     }
     public void punchTimeCard(int time) {
-        if (!punchedIn) {
+        if (!isPunchedIn) {
             punchIn(time);
         } else {
             punchOut(time);
